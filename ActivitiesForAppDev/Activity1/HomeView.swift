@@ -18,18 +18,65 @@ struct HomeView: View {
                     .fontWeight(.bold)
                     .foregroundColor(.blue)
                     .shadow(radius: 3, y: 3)
-
-                NavigationLink("Register", destination: RegisterView())
-                    .foregroundColor(.white)
-                    .buttonStyle(.glassProminent)
+                
+                NavigationLink("Register") {
+                    LoadingViewWrapper {
+                        RegisterView()
+                    }
+                }
+                .buttonStyle(.glassProminent)
                 
                 Spacer()
                 
-                NavigationLink("App Info", destination: InfoView())
-                    .foregroundColor(.white)
-                    .buttonStyle(.glassProminent)
+                NavigationLink("Gallery") {
+                    LoadingViewWrapper {
+                        GalleryView()
+                    }
+                }
+                .buttonStyle(.glassProminent)
+                
+                NavigationLink("App Info") {
+                    LoadingViewWrapper {
+                        InfoView()
+                    }
+                }
+                .buttonStyle(.glassProminent)
             }
             .padding()
+        }
+    }
+}
+
+struct LoadingViewWrapper<Content: View>: View {
+    @State private var isLoading = true
+    let content: Content
+
+    init(@ViewBuilder content: () -> Content) {
+        self.content = content()
+    }
+
+    var body: some View {
+        ZStack {
+            content
+                .opacity(isLoading ? 0 : 1)
+
+            if isLoading {
+                Color.black.opacity(0.3)
+                    .ignoresSafeArea()
+
+                ProgressView("Loading...")
+                    .progressViewStyle(.circular)
+                    .padding()
+                    .background(.ultraThinMaterial)
+                    .cornerRadius(12)
+            }
+        }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                withAnimation {
+                    isLoading = false
+                }
+            }
         }
     }
 }
