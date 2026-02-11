@@ -21,7 +21,7 @@ struct HomeView: View {
                 
                 NavigationLink("Register") {
                     LoadingViewWrapper {
-                        RegisterView()
+                        RegisterView2()
                     }
                 }
                 .buttonStyle(.glassProminent)
@@ -37,7 +37,7 @@ struct HomeView: View {
                 
                 NavigationLink("App Info") {
                     LoadingViewWrapper {
-                        InfoView()
+                        InfoView2()
                     }
                 }
                 .buttonStyle(.glassProminent)

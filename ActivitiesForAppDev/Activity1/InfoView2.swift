@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct InfoView: View {
+struct InfoView2: View {
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
@@ -36,5 +36,5 @@ struct InfoView: View {
 
 
 #Preview {
-    InfoView()
+    InfoView2()
 }

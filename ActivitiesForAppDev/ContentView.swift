@@ -6,13 +6,26 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ContentView: View {
+    
+    @Query var users: [User]
+    
     var body: some View {
-        MainView()
+        if users.isEmpty {
+            RegisterView()
+        } else {
+            LoginView(user: users.first!)
+                .onAppear {
+                    print(users)
+                }
+        }
     }
 }
 
+
 #Preview {
     ContentView()
+        .modelContainer(for: User.self)
 }
